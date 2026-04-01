@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عيد ميلاد دكتورنا ابو بشير 🎂</title>
+<title>عيد ميلاد 🎂</title>
 
 <style>
 body {
@@ -15,8 +15,8 @@ body {
     overflow: hidden;
 }
 
-/* 🎬 intro */
-#intro {
+/* الصفحة الأولى */
+#startPage {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -24,32 +24,30 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
-    animation: fadeOut 2s forwards 2s;
+    flex-direction: column;
 }
 
-@keyframes fadeOut {
-    to {opacity: 0; visibility: hidden;}
+.startBtn {
+    background: #22c55e;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
-/* 🎂 main */
+/* الصفحة الثانية */
 #main {
-    opacity: 0;
-    animation: show 2s forwards 3s;
+    display: none;
 }
 
-@keyframes show {
-    to {opacity: 1;}
-}
-
-.title { margin-top: 50px; font-size: 1.6em; }
+/* النص العربي (حل المشكلة) */
 .name {
     font-size: 2.5em;
     color: #22c55e;
-    text-shadow: 0 0 20px #22c55e, 0 0 40px #22c55e;
+    text-shadow: 0 0 20px #22c55e;
+    direction: rtl;
+    unicode-bidi: embed;
 }
-
-.from { margin-top: 10px; font-size: 1.4em; color: #94a3b8; }
 
 /* confetti */
 .confetti {
@@ -93,91 +91,44 @@ body {
     border-radius: 50%;
     position: absolute;
     top: -15px;
-    animation: flicker 0.2s infinite;
-}
-@keyframes flicker {
-    50% {opacity: 0.5;}
-}
-
-.smoke {
-    width: 10px;
-    height: 10px;
-    background: gray;
-    border-radius: 50%;
-    position: absolute;
-    top: -20px;
-    animation: smoke 2s forwards;
-}
-@keyframes smoke {
-    to {
-        opacity: 0;
-        transform: translateY(-40px);
-    }
-}
-
-.dua {
-    margin-top: 30px;
-    font-size: 2em;
-    line-height: 1.8;
-    color: #e2e8f0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔊 الصوت -->
+<!-- الصوت -->
 <audio id="music" src="music.mp3" preload="auto" loop></audio>
 
-<!-- 🎬 intro -->
-<div id="intro">🎁 مفاجأة</div>
+<!-- الصفحة الأولى -->
+<div id="startPage">
+    <h1>🎁 عندي إشي إلك</h1>
+    <div class="startBtn" onclick="start()">اضغط للمفاجأة 🎉</div>
+</div>
 
-<!-- 🎂 main -->
+<!-- الصفحة الثانية -->
 <div id="main">
-    <h1 class="title">🎂 Happy Birthday to you 🎂</h1>
-    <div class="name" id="name"></div>
-    <p class="from">تهنئة من مجموعة الغوالي  💙</p>
+    <h1>🎂 Happy Birthday 🎂</h1>
+    <div class="name">دكتورنا أبو بشير</div>
+    <p>تهنئة من مجموعة الغوالي 💙</p>
     <div id="candles"></div>
-
-    <p class="dua">
-        🎉 عيد ميلاد سعيد يا دكتورنا<br>
-        نشوفك في أعلى المراتب<br>
-                ملك البيس<br>
-        💙 وعقبال 100 سنة يا رب
-    </p>
 </div>
 
 <script>
 
-// 🔊 تشغيل الصوت + بدء الأنيميشن
-function startExperience(){
-    let audio = document.getElementById("music");
+function start(){
+    document.getElementById("startPage").style.display="none";
+    document.getElementById("main").style.display="block";
 
+    let audio = document.getElementById("music");
     audio.play().catch(()=>{});
 
-    // 🚀 بدء كل شيء
-    typeName("دكتورنا الفخم أبو بشير");
     confetti();
     balloons();
     candles();
 }
 
-// 👇 أول تفاعل = تشغيل كل شيء
-document.addEventListener("click", startExperience, { once: true });
-document.addEventListener("touchstart", startExperience, { once: true });
-
-// ✨ كتابة الاسم
-function typeName(text){
-    let el = document.getElementById("name");
-    let i=0;
-    let interval=setInterval(()=>{
-        el.innerHTML += text[i];
-        i++;
-        if(i>=text.length) clearInterval(interval);
-    },120);
-}
-
-// 🎊 confetti
+// confetti
 function confetti(){
     for(let i=0;i<120;i++){
         let c=document.createElement("div");
@@ -189,7 +140,7 @@ function confetti(){
     }
 }
 
-// 🎈 balloons
+// balloons
 function balloons(){
     for(let i=0;i<12;i++){
         let b=document.createElement("div");
@@ -201,7 +152,7 @@ function balloons(){
     }
 }
 
-// 🕯️ candles
+// candles
 function candles(){
     let container = document.getElementById("candles");
 
@@ -215,18 +166,6 @@ function candles(){
         c.appendChild(f);
         container.appendChild(c);
     }
-
-    setTimeout(blow,5000);
-}
-
-// 💨 blow
-function blow(){
-    document.querySelectorAll(".flame").forEach(f=>{
-        f.remove();
-        let s=document.createElement("div");
-        s.className="smoke";
-        f.parentElement.appendChild(s);
-    });
 }
 
 </script>
