@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيد ميلاد دكتور ابو بشير  🎂</title>
+
+<style>
+body {
+    margin: 0;
+    background: #020617;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* intro */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    animation: fadeOut 2s forwards 2s;
+}
+
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
+}
+
+#main {
+    opacity: 0;
+    animation: show 2s forwards 3s;
+}
+
+@keyframes show {
+    to {opacity: 1;}
+}
+
+.title {
+    margin-top: 50px;
+    font-size: 1.6em;
+}
+
+.name {
+    font-size: 2.5em;
+    color: #22c55e;
+    text-shadow: 0 0 20px #22c55e;
+}
+
+.from {
+    font-size: 1.4em;
+    color: #94a3b8;
+}
+
+.dua {
+    margin-top: 30px;
+    font-size: 2em;
+    line-height: 1.8;
+}
+
+/* confetti */
+.confetti {
+    position: fixed;
+    width: 6px;
+    height: 12px;
+    top: -10px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+    🎁 مفاجأة
+</div>
+
+<div id="main">
+    <h1 class="title">🎂 Happy Birthday 🎂</h1>
+
+    <div class="name" id="name"></div>
+    <p class="from">تهنئة من مجموعة الغوالي  💙</p>
+
+    <p class="dua">
+        🎉 عيد ميلاد سعيد يا دكتور <br>
+        ربي يجعلك قرة عين لأهلك<br>
+        ويحفظك لنا وتكبر<br>
+        ونشوفك في أعلى المراتب<br>
+          ملك البيس <br>
+        💙 وعقبال 100 سنة يا رب
+    </p>
+</div>
+
+<!-- الصوت -->
+<audio id="music" src="music.mp3.mpeg" preload="auto" loop></audio>
+
+<script>
+
+// الاسم
+function typeName(text){
+    let el = document.getElementById("name");
+    let i=0;
+    let interval=setInterval(()=>{
+        el.innerHTML += text[i];
+        i++;
+        if(i>=text.length) clearInterval(interval);
+    },120);
+}
+
+// confetti
+function confetti(){
+    for(let i=0;i<100;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=["red","yellow","green","blue"][Math.floor(Math.random()*4)];
+        c.style.animationDuration=(3+Math.random()*3)+"s";
+        document.body.appendChild(c);
+    }
+}
+
+// التشغيل
+setTimeout(()=>{
+    typeName("دكتورنا أبو بشير");
+    confetti();
+},3000);
+
+// تشغيل الصوت أول لمسة
+function playMusic(){
+    let audio = document.getElementById("music.mp3.mpeg");
+    audio.play().catch(()=>{});
+}
+
+document.addEventListener("touchstart", playMusic, { once: true });
+document.addEventListener("click", playMusic, { once: true });
+
+</script>
+
+</body>
+</html>
