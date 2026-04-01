@@ -49,6 +49,11 @@ body {
     direction: rtl;
 }
 
+/* الشموع */
+.candles {
+    margin-top: 20px;
+}
+
 /* النص */
 .message {
     font-size: 1.6em;
@@ -56,6 +61,13 @@ body {
     line-height: 1.8;
     direction: rtl;
     color: #e2e8f0;
+}
+
+/* التهنئة */
+.from {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #94a3b8;
 }
 
 /* confetti */
@@ -121,7 +133,9 @@ body {
 <div id="main">
     <h1>🎂 Happy Birthday 🎂</h1>
 
-    <div class="name">دكتورنا أبو بشير</div>
+    <div class="name">دكتورنا الفخم أبو بشير</div>
+
+    <div id="candles" class="candles"></div>
 
     <p class="message">
         🎉 كل عام وأنت بخير يا دكتورنا<br>
@@ -129,23 +143,18 @@ body {
         ملك البيس 👑
     </p>
 
-    <p>تهنئة من مجموعة الغوالي 💙</p>
-
-    <div id="candles"></div>
+    <p class="from">💙 تهنئة من مجموعة الغوالي</p>
 </div>
 
 <script>
 
 function start(){
-    // إخفاء الصفحة الأولى
     document.getElementById("startPage").style.display = "none";
     document.getElementById("main").style.display = "block";
 
-    // تشغيل الصوت
     let audio = document.getElementById("music");
     audio.play().catch(()=>{});
 
-    // تشغيل الأنيميشن
     confetti();
     balloons();
     candles();
