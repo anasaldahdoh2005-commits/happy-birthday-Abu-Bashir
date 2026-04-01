@@ -25,6 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 10;
 }
 
 .startBtn {
@@ -40,13 +41,12 @@ body {
     display: none;
 }
 
-/* النص العربي (حل المشكلة) */
+/* الاسم */
 .name {
     font-size: 2.5em;
     color: #22c55e;
     text-shadow: 0 0 20px #22c55e;
     direction: rtl;
-    unicode-bidi: embed;
 }
 
 /* confetti */
@@ -98,18 +98,20 @@ body {
 <body>
 
 <!-- الصوت -->
-<audio id="music" src="music.mp3" preload="auto" loop></audio>
+<audio id="music">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <!-- الصفحة الأولى -->
 <div id="startPage">
-    <h1>🎁 عندي إشي إلك</h1>
+    <h1>🎁 عندي مفاجأة إلك</h1>
     <div class="startBtn" onclick="start()">اضغط للمفاجأة 🎉</div>
 </div>
 
 <!-- الصفحة الثانية -->
 <div id="main">
     <h1>🎂 Happy Birthday 🎂</h1>
-    <div class="name">دكتورنا أبو بشير</div>
+    <div class="name">دكتورنا الفخم أبو بشير</div>
     <p>تهنئة من مجموعة الغوالي 💙</p>
     <div id="candles"></div>
 </div>
@@ -117,12 +119,19 @@ body {
 <script>
 
 function start(){
-    document.getElementById("startPage").style.display="none";
-    document.getElementById("main").style.display="block";
+    // إخفاء الصفحة الأولى
+    document.getElementById("startPage").style.display = "none";
+    document.getElementById("main").style.display = "block";
 
+    // تشغيل الصوت (مضمون لأنه داخل click)
     let audio = document.getElementById("music");
-    audio.play().catch(()=>{});
+    audio.play().then(()=> {
+        console.log("sound working");
+    }).catch(e=>{
+        console.log("sound blocked", e);
+    });
 
+    // تشغيل الأنيميشن
     confetti();
     balloons();
     candles();
